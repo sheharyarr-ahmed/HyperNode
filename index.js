@@ -1,6 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 const url = require("url");
+const replaceTemplate = require("./modules/replaceTemplate.js");
 
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObj = JSON.parse(data);
@@ -14,31 +15,14 @@ const tempProduct = fs.readFileSync(
   "utf-8",
 );
 
-const replaceTemplate = (template, product) => {
-  let output = template.replace(/{%PRODUCTNAME%}/g, product.productName);
-  output = output.replace(/{%IMAGE%}/g, product.image);
-  output = output.replace(/{%QUANTITY%}/g, product.quantity);
-  output = output.replace(/{%PRICE%}/g, product.price);
-  output = output.replace(/{%FROM%}/g, product.from);
-  output = output.replace(/{%NUTRIENTS%}/g, product.nutrients);
-  output = output.replace(/{%DESCRIPTION%}/g, product.description);
-  output = output.replace(/{%ID%}/g, product.id);
-
-  if (!product.organic) {
-    output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic");
-  } else {
-    output = output.replace(/{%NOT_ORGANIC%}/g, "");
-  }
-
-  return output;
-};
-
 const server = http.createServer((req, res) => {
   const { pathname, query } = url.parse(req.url, true);
 
   if (pathname === "/" || pathname === "/overview") {
     res.writeHead(200, { "Content-type": "text/html" });
-    const cardsHtml = dataObj.map((product) => replaceTemplate(tempCard, product)).join("");
+    const cardsHtml = dataObj
+      .map((product) => replaceTemplate(tempCard, product))
+      .join("");
     const output = tempOverview.replace("{%PRODUCT_CARDS%}", cardsHtml);
 
     res.end(output);
