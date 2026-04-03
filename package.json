@@ -1,0 +1,26 @@
+{
+  "name": "hyper-node",
+  "version": "1.0.0",
+  "description": "experimenting",
+  "homepage": "https://github.com/sheharyarr-ahmed/HyperNode#readme",
+  "bugs": {
+    "url": "https://github.com/sheharyarr-ahmed/HyperNode/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sheharyarr-ahmed/HyperNode.git"
+  },
+  "license": "ISC",
+  "author": "Shery",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "slugify": "^1.6.9"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
